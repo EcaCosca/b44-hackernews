@@ -15,16 +15,12 @@ function App() {
   const getPosts = async (url) => {
     try {
       const response = await axios.get(url)
-      console.log(response);
-      setPosts(response.data.hits)
+      console.log(response.data);
+      setPosts(response.data)
     } catch (error) {
       setError(error)
     }
   }
-
-
-  // create a api search to find the l;atest stories with the following url
-  // http://hn.algolia.com/api/v1/search?tags=front_page
 
   
   // create a api search to find the l;atest stories with maches from the search
