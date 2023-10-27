@@ -1,14 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posts, setPosts] = useState(null)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    getPosts("http://hn.algolia.com/api/v1/search?tags=front_page")
+  }, [])
+
+  const getPosts = async (url) => {
+    try {
+      const response = await axios.get(url)
+      console.log(response);
+      setPosts(response.data.hits)
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+
+  // create a api search to find the l;atest stories with the following url
+  // http://hn.algolia.com/api/v1/search?tags=front_page
+
+  
+  // create a api search to find the l;atest stories with maches from the search
+  // http://hn.algolia.com/api/v1/search?query=foo&tags=story
+
 
   return (
     <>
-      <div>
+      {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -27,7 +52,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   )
 }
